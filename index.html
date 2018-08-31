@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <meta charset=utf-8 />
+    
+    <link rel="stylesheet" href="plyr-master/dist/plyr.css">
+    
+    <link rel="stylesheet" href="main.css">
+    
+    <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
+    
+    
+    
+    
+     
+    
+</head>
+
+
+<header> 
+
+    <div class='ls_status'>
+    
+    <p>Live Stream: Offline</p>
+    <button onclick='load_ls()'> Load Livestream </button>
+    <button onclick ='test_hls()'>Test HLS</button>
+    </div>
+    
+    <img id='banner' src="images/header.png">
+    
+
+</header>   
+    
+    
+    
+<body> 
+    
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="https://unpkg.com/video.js/dist/video.js"></script>
+    <script src="dash.js-2.9.0/dist/dash.all.min.js"> </script>
+    <script src="https://unpkg.com/videojs-contrib-dash/dist/videojs-dash.js"> </script>
+    <script src="hls_player.js"> </script>
+    
+    
+    
+    
+    
+    
+    <div class = "upper">
+    
+         <!--<video preload="none" id="player_test" autoplay controls crossorigin></video> -->
+        
+        <div id = 'hls-container'>
+            
+            <div id = 'hls-inner'>
+                
+                    <video preload="none" id="hlsplayer" autoplay controls crossorigin></video>
+            
+            </div>
+            
+        </div>
+        
+        
+        
+        <div id = 'player-container'>
+            
+           
+            
+            <div id = 'plyr-contain'>
+           
+                
+                
+            
+            <video class = 'plyr' id = 'actual_plyr'></video>
+            </div>
+            
+            
+            
+                <video class="plyr video-js vjs-default-skin" id='plyrply' controls >
+                    <source src = "rtmp://cp67126.edgefcs.net/ondemand/&mp4:mediapm/ovp/content/test/video/spacealonehd_sounas_640_300.mp4" type='rtmp/mp4'>
+                </video>
+            
+        </div>
+        
+        
+        
+        <!--If HLS is supported -->
+        <!-- Destroy VideoJS element -->
+        <!--Create video element and adding parameters... -->
+        <!--Want element to look like this: <video preload="none" id="hlsplayer" autoplay controls crossorigin></video> -->
+        
+        
+        <!-- Otherwise, we load the MPEG-Dash live stream into the VideoJS player -->
+        
+        <script>
+            if (Hls.isSupported()) {
+                
+                var vod_container = document.getElementById('player-container');
+                var hls_container = document.getElementById('hls-container');
+                
+                vod_container.style.display = 'none';
+                hls_container.style.display = 'block';
+                
+                
+                
+                HlsSupported = true;
+                console.log('Hls Supported on Page');
+                
+                
+                var ls = videojs('plyrply');
+                ls.dispose();
+
+                
+                
+                create_hls_player();
+                load_hls();
+            }
+            else {
+                
+                HlsSupported = false;
+                
+                console.log("Browser does not support Hls playback");
+                var ls = videojs('plyrply');
+                ls.src({ src: 'https://s3.amazonaws.com/_bc_dml/example-content/sintel_dash/sintel_vod.mpd', type: 'application/dash+xml'});
+                ls.play();
+            }
+            
+        </script>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <nav class = "playlist--list">
+            
+            
+            <div id='nav-overlay'>
+                
+                <button id='exitLS' onclick = "exitLS()"> Exit LiveStream Mode </button>
+                     </div>
+
+            
+                <li id = 'vid' data-id="0" video_id = '7MjMLgULsFE'>
+                        <div class= 'sidebar-containers'>
+
+                            <video id='player2' ></video>
+                            <a href="#" data-id="0" video_id = '7MjMLgULsFE' class="myButton" onclick="newload_YoutubeVideo('0')">Load In Player</a>
+
+                        </div>
+
+                </li>
+
+                <li id = 'vid' data-id="1" video_id = 'RJvpu8nYzFg'>
+                    <div class= 'sidebar-containers'>
+                        <video id='player3' ></video>
+                        <a href="#" data-id="1" video_id = 'RJvpu8nYzFg' class="myButton" onclick="newload_YoutubeVideo('1')">Load In Player</a>
+                    </div>
+                </li>
+            
+                <li id = 'vid' data-id="2" video_id = 'XC4xAj_awOI'>
+                    <div class= 'sidebar-containers's>
+                        <video id='player4' ></video>
+                        <a href="#" data-id="2" video_id = 'XC4xAj_awOI' class="myButton" onclick="newload_YoutubeVideo('2')">Load In Player</a>
+                    </div>
+                </li>
+            
+                <li id = 'vid' data-id="3" video_id = 'lZQjpl8HtzM'>
+                        <div class= 'sidebar-containers'>
+
+                            <video id='player5' ></video>
+                            <a href="#" data-id="3" video_id = 'lZQjpl8HtzM' class="myButton" onclick="newload_YoutubeVideo('3')">Load In Player</a>
+
+                        </div>
+
+                </li>
+                <li id = 'vid' data-id="4" video_id = 'kzikXHAOL9s'>
+                        <div class= 'sidebar-containers'>
+
+                            <video id='player6' ></video>
+                            <a href="#" data-id="4" video_id = 'kzikXHAOL9s' class="myButton" onclick="newload_YoutubeVideo('4')">Load In Player</a>
+
+                        </div>
+
+                </li>
+                <li id = 'vid' data-id="5" video_id = '22zJrc08YPM'>
+                        <div class= 'sidebar-containers'>
+
+                            <video id='player7' ></video>
+                            <a href="#" data-id="5" video_id = '22zJrc08YPM' class="myButton" onclick="newload_YoutubeVideo('5')">Load In Player</a>
+
+                        </div>
+
+                </li>
+                <li id = 'vid' data-id="6" video_id = 'cjmfRO5pvX4'>
+                        <div class= 'sidebar-containers'>
+
+                            <video id='player8' ></video>
+                            <a href="#" data-id="6" video_id = 'cjmfRO5pvX4' class="myButton" onclick="newload_YoutubeVideo('6')">Load In Player</a>
+
+                        </div>
+
+                </li>
+                <li id = 'vid' data-id="7" video_id = 'BuBC9mtKlxU'>
+                        <div class= 'sidebar-containers'>
+
+                            <video id='player9' ></video>
+                            <a href="#" data-id="7" video_id = 'BuBC9mtKlxU' class="myButton" onclick="newload_YoutubeVideo('7')">Load In Player</a>
+
+                        </div>
+
+                </li>
+                <li id = 'vid' data-id="8" video_id = 'oHvKI-X-6_A'>
+                        <div class= 'sidebar-containers'>
+
+                            <video id='player10' ></video>
+                            <a href="#" data-id="8" video_id = 'oHvKI-X-6_A' class="myButton" onclick="newload_YoutubeVideo('8')">Load In Player</a>
+
+                        </div>
+
+                </li>
+                <li id = 'vid' data-id="9" video_id = 'Cwl5d2nQA7k'>
+                        <div class= 'sidebar-containers'>
+
+                            <video id='player11' ></video>
+                            <a href="#" data-id="9" video_id = 'Cwl5d2nQA7k' class="myButton" onclick="newload_YoutubeVideo('9')">Load In Player</a>
+
+                        </div>
+
+                </li>
+                <li id = 'vid' data-id="10" video_id = 'In7n6EDfAxg'>
+                        <div class= 'sidebar-containers'>
+
+                            <video id='player12' ></video>
+                            <a href="#" data-id="10" video_id = 'In7n6EDfAxg' class="myButton" onclick="newload_YoutubeVideo('10')">Load In Player</a>
+
+                        </div>
+
+                </li>
+                <li id = 'vid' data-id="11" video_id = 'GESt8gyTJsQ'>
+                        <div class= 'sidebar-containers'>
+
+                            <video id='player13' ></video>
+                            <a href="#" data-id="11" video_id = 'GESt8gyTJsQ' class="myButton" onclick="newload_YoutubeVideo('11')">Load In Player</a>
+
+                        </div>
+
+                </li>
+                <li id = 'vid' data-id="12" video_id = 'XC4xAj_awOI'>
+                        <div class= 'sidebar-containers'>
+
+                            <video id='player14' ></video>
+                            <a href="#" data-id="12" video_id = 'XC4xAj_awOI' class="myButton" onclick="newload_YoutubeVideo('12')">Load In Player</a>
+
+                        </div>
+
+                </li>
+            
+            
+                
+            
+        </nav>
+    
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    <main>
+    
+        
+        
+        
+  
+     <div class = 'thumbnail-container' onclick = "load_YoutubeVideo('YFf1nblR3Zc')">
+        
+         <video class ='thumbnail'></video>
+         
+            </div>
+        
+        
+        
+ 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+    
+    
+    
+    
+      
+    
+
+      
+
+       
+          
+        
+        
+ 
+        
+    </main>
+    
+    
+
+
+
+
+
+
+
+
+
+    
+    <script src="https://cdn.plyr.io/3.3.23/plyr.js"></script>
+    <script src="https://cdn.jsdelivr.net/hls.js/latest/hls.js"></script>
+    <script src="main1.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    
+
+
+
+
+
+    </body>
+
+    
+    
+    
+    
+    
+</html>
+
+
